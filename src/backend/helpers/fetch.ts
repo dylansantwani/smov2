@@ -66,8 +66,15 @@ export async function singularProxiedFetch<T>(
     },
     query: {},
     headers,
-    onResponse(context) {
+    async onResponse(context) {
       const tokenHeader = context.response.headers.get("X-Token");
+      const responseBody = await context.response.text();
+      if (responseBody.includes("<iframe")) {
+        // Handle the presence of an <iframe> tag
+        // For example, you might log it or trigger some UI update
+        console.log("Iframe detected in response");
+        // Additional logic to display the embed can be added here
+      }
       if (tokenHeader) setApiToken(tokenHeader);
 
       if (Array.isArray(ops.onResponse)) {
