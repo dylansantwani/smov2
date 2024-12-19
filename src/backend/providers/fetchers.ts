@@ -40,15 +40,11 @@ async function fetchButWithApiTokens(
       : undefined,
   );
   const responseBody = await response.text();
-      if (responseBody.includes("<iframe")) {
-        // Handle the presence of an <iframe> tag
-        // For example, you might log it or trigger some UI update
-        console.log("Iframe detected in response");
-        // Additional logic to display the embed can be added here
-      }
-      else{
-        console.log("no iframe detectedf");
-      }
+  if (responseBody.includes("<iframe")) {
+    console.log("Iframe detected in response");
+  } else {
+    console.log("no frame");
+  }
 
   const newApiToken = response.headers.get("X-Token");
   if (newApiToken) setApiToken(newApiToken);
